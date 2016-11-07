@@ -26,7 +26,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv
 [06/11/2016-11:12:12] - * clean...  
 [06/11/2016-11:12:12] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-Example: https://vgy.me/RynzNa.png
+![Example.][https://vgy.me/RynzNa.png] 
 
 -----------------
 
@@ -44,7 +44,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv -n 20
 [06/11/2016-11:23:59] - * clean...  
 [06/11/2016-11:23:59] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-Example: https://vgy.me/frYFu8.png
+![Example.][https://vgy.me/frYFu8.png]
 
 -----------------
 
@@ -62,4 +62,4 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv -n 15 -c 5
 [06/11/2016-11:26:28] - * clean...  
 [06/11/2016-11:26:28] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-Example: https://vgy.me/tvrTWN.png
+![Example.][https://vgy.me/tvrTWN.png]
