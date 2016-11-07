@@ -16,7 +16,7 @@
 # Personal site: https://jacksonlopes.github.io
 # Info/Source: https://makeThumbVid.github.io | https://github.com/jacksonlopes/makeThumbVid
 
-# Dependecies | Dependências:
+# Dependencies | Dependências:
 # ffprobe, ffmpeg, mplayer, ImageMagick {montage/convert}
 ffprobe="/usr/bin/ffprobe"
 ffmpeg="/usr/bin/ffmpeg"
@@ -38,7 +38,6 @@ SUCESS=0
 version="1.0"
 script_name="makeThumbVid"
 site="https://makeThumbVid.github.io"
-# space to _ | troca espaço por _
 name_video=""
 name_video_constant=""
 # get filename | obtem apenas o nome do arquivo
@@ -68,36 +67,12 @@ function check_programs() {
        log "Error create '$tmp_dir'" ; exit $ERROR 
      fi
    }
-   [ ! -f $mediainfo ] && { 
-     log "$mediainfo [NOT EXIST]" ; exit $ERROR 
-   }   
-   [ ! -f $ffprobe ] && { 
-     log "$ffprobe [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $ffprobe ] && { 
-     log "$ffprobe [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $ffmpeg  ] && { 
-     log "$ffmpeg [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $mplayer ] && { 
-     log "$mplayer [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $montage ] && { 
-     log "$montage [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $convert ] && { 
-     log "$convert [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $bc ] && { 
-     log "$bc [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $tail ] && { 
-     log "$tail [NOT EXIST]" ; exit $ERROR 
-   }
-   [ ! -f $rm ] && { 
-     log "$rm [NOT EXIST]" ; exit $ERROR 
-   }
+   
+   for A in $ffprobe $ffmpeg $mediainfo $mplayer $montage $convert; do
+     [ ! -f $A ] && { 
+       log "$A [NOT EXIST]" ; exit $ERROR 
+     }    
+   done
 }
 
 # Check for video | Verifica se o video existe
@@ -153,6 +128,7 @@ function generate_thumb() {
 
 # Set options for video | Seta opções para o thumbnail
 function set_options_video() {
+  # space to _ | troca espaço por _
   name_video=`$basename "$1" | tr ' ' '_'`
   name_video_constant=$name_video
   # get filename | obtem apenas o nome do arquivo
