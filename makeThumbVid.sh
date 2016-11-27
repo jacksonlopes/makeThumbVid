@@ -24,14 +24,7 @@ mediainfo="/usr/bin/mediainfo"
 mplayer="/usr/bin/mplayer"
 montage="/usr/bin/montage"
 convert="/usr/bin/convert"
-bc="/usr/bin/bc"
-tail="/usr/bin/tail"
-echo="/usr/bin/echo"
-head="/usr/bin/head"
-tail="/usr/bin/tail"
-rm="/usr/bin/rm"
-grep="/usr/bin/grep"
-basename="/usr/bin/basename"
+
 ERROR=1
 SUCESS=0
 
@@ -56,23 +49,29 @@ color_info="YellowGreen" # Khaki, Orange, Plum, YellowGreen, Gold, black, ...
 # Functions | Funções
 # Write log stdout | Escreve informmações em stdout
 function log() {
-   $echo "[`date +%d/%m/%Y-%T`] - $*"
+   echo "[`date +%d/%m/%Y-%T`] - $*"
 }
 
 # Check for programs | Verifica se programas existem
 function check_programs() {
    [ ! -d $tmp_dir ] && {
-     /usr/bin/mkdir $tmp_dir
+     mkdir $tmp_dir
      if [ $? != 0 ]; then
        log "Error create '$tmp_dir'" ; exit $ERROR 
      fi
    }
    
-   for A in $ffprobe $ffmpeg $mediainfo $mplayer $montage $convert; do
+   for A in $ffmpeg $mplayer $montage $convert; do
      [ ! -f $A ] && { 
        log "$A [NOT EXIST]" ; exit $ERROR 
      }    
    done
+   if [ "$type_info" = "" -o "$type_info" = "ff" -a ! -f "$ffprobe" ]; then
+      log "$ffprobe [NOT EXIST]" ; exit $ERROR 
+   elif [ ! -f "$mediainfo" ]; then
+      log "$mediainfo [NOT EXIST]" ; exit $ERROR
+   fi
+   
 }
 
 # Check for video | Verifica se o video existe
@@ -88,14 +87,18 @@ function get_info_video() {
    # http://stackoverflow.com/questions/19013536/how-to-get-video-duration-in-seconds
    num_seconds_movie=`$ffmpeg -i "$1" 2>&1 | awk '/Duration/ {split($2,a,":");print a[1]*3600+a[2]*60+a[3]}'`
    # approximate | aproximado.
-   num_seconds_movie=`$echo $num_seconds_movie / $num_images | $bc`
-   info_video=`$ffprobe -i "$1" -hide_banner -pretty 2>&1 | tail -n+2`
+   num_seconds_movie=`echo $num_seconds_movie / $num_images | bc`
    
-   # Create info by mediainfo | Se quiser o cabeçalho via mediainfo
-   #info_video=`$mediainfo "$1" | $head -n+12 | $tail -n10` 
-   #info_video=`$echo "$info_video \n"``$mediainfo "$1" | $grep Width` 
-   #info_video=`$echo "$info_video \n"``$mediainfo "$1" | $grep Height` 
-   #info_video=`$echo "$info_video \n"``$mediainfo "$1" | $grep Format/Info | $tail -1`    
+   if [ "$type_info" = "" -o "$type_info" = "ff" ]; then
+      #ffprobe
+      info_video=`$ffprobe -i "$1" -hide_banner -pretty 2>&1 | tail -n+2`
+   else   
+      # Create info by mediainfo | Se quiser o cabeçalho via mediainfo
+      info_video=`$mediainfo "$1" | head -n+12 | tail -n10` 
+      info_video=`echo "$info_video \n"``$mediainfo "$1" | grep Width` 
+      info_video=`echo "$info_video \n"``$mediainfo "$1" | grep Height` 
+      info_video=`echo "$info_video \n"``$mediainfo "$1" | grep Format/Info | tail -1`    
+   fi   
    
    [ "$num_seconds_movie" = "" ] && {
      log "Error getting SECONDS..." ; exit $ERROR 
@@ -119,17 +122,17 @@ function generate_thumb() {
    $montage 00*.jpg -pointsize 8 -size 256x256 -thumbnail 256x256 -geometry +3+3 -tile ${num_columns}x -sampling-factor 3x1 -quality 0 -border 1 ${name_video}_${script_name}_Thumbnail_tmp.png 2>/dev/null
    log "* convert..."
    $convert ${name_video}_${script_name}_Thumbnail_tmp.png -background $color_info label:"$info_video" +swap -gravity NorthWest -append label:"$make_by" -append -gravity south ${name_video}_${script_name}_Thumbnail.png 2>/dev/null
-   /usr/bin/mv ${name_video}_${script_name}_Thumbnail.png $OLDPWD
+   mv ${name_video}_${script_name}_Thumbnail.png $OLDPWD
    log "* clean..."
-   $rm 000*.jpg
-   $rm ${name_video}_${script_name}_Thumbnail_tmp.png
+   rm 000*.jpg
+   rm ${name_video}_${script_name}_Thumbnail_tmp.png
    cd $OLDWD
 }
 
 # Set options for video | Seta opções para o thumbnail
 function set_options_video() {
   # space to _ | troca espaço por _
-  name_video=`$basename "$1" | tr ' ' '_'`
+  name_video=`basename "$1" | tr ' ' '_'`
   name_video_constant=$name_video
   # get filename | obtem apenas o nome do arquivo
   name_video="${name_video%.*}"
@@ -138,12 +141,14 @@ function set_options_video() {
 
 # Help | Ajuda
 function help() {
-   $echo "Usage: $script_name -v <VIDEO> [-n <NUM_IMAGES>] [-c <NUM_COLUMNS>]"
-   $echo "Example: "
-   $echo " $script_name -v /home/myuser/myvideo.mp4            # DEFAULT num_images = $num_images , num_columns = $num_columns"
-   $echo " $script_name -v /home/myuser/myvideo.mp4 -n 20      # 20 images in result..."
-   $echo " $script_name -v /home/myuser/myvideo.mp4 -c 5       # 5 columns in result..."
-   $echo " $script_name -v /home/myuser/myvideo.mp4 -n 20 -c 5 # 20 images in result and 5 columns..."
+   echo "Usage: $script_name -v <VIDEO> [-n <NUM_IMAGES>] [-c <NUM_COLUMNS>] [-t <TYPE_INFO>]"
+   echo "Example: "
+   echo " $script_name -v /home/myuser/myvideo.mp4                  # DEFAULT num_images = $num_images|num_columns = $num_columns|type_info = mplayer"
+   echo " $script_name -v /home/myuser/myvideo.mp4 -n 20            # 20 images in result..."
+   echo " $script_name -v /home/myuser/myvideo.mp4 -c 5             # 5 columns in result..."
+   echo " $script_name -v /home/myuser/myvideo.mp4 -n 20 -c 5       # 20 images in result and 5 columns..."
+   echo " $script_name -v /home/myuser/myvideo.mp4 -n 20 -c 5 -t ff # 20 images in result and 5 columns, info by ffprobe"
+   echo " $script_name -v /home/myuser/myvideo.mp4 -n 20 -c 5 -t mi # 20 images in result and 5 columns, info by mediainfo"
    exit $ERROR
 }
 
@@ -166,7 +171,7 @@ function main() {
    generate_thumb "$1"
 }
 
-while getopts ":v:n:c:h" opt; do
+while getopts ":v:n:c:t:h" opt; do
    case "${opt}" in
      v) 
        v=${OPTARG}
@@ -184,6 +189,11 @@ while getopts ":v:n:c:h" opt; do
        check_option "$c"
        num_columns=$c
        ;;
+     t)
+       t=${OPTARG}
+       check_option "$t"
+       type_info=$t
+       ;;       
      *|h)
        help
        ;;
