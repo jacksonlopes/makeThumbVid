@@ -66,8 +66,10 @@ function check_programs() {
        log "$A [NOT EXIST]" ; exit $ERROR 
      }    
    done
-   if [ "$type_info" = "" -o "$type_info" = "ff" -a ! -f "$ffprobe" ]; then
-      log "$ffprobe [NOT EXIST]" ; exit $ERROR 
+   if [ "$type_info" = "" -o "$type_info" = "ff" ]; then
+      [ ! -f "$ffprobe" ] && {
+        log "$ffprobe [NOT EXIST]" ; exit $ERROR 
+      }  
    elif [ ! -f "$mediainfo" ]; then
       log "$mediainfo [NOT EXIST]" ; exit $ERROR
    fi
@@ -119,7 +121,7 @@ function generate_thumb() {
    log "* mplayer..."
    $mplayer -vo jpeg -sstep $num_seconds_movie -frames $num_images "$1" > /dev/null 2>&1
    log "* montage..."
-   $montage 00*.jpg -pointsize 8 -size 256x256 -thumbnail 256x256 -geometry +3+3 -tile ${num_columns}x -sampling-factor 3x1 -quality 0 -border 1 ${name_video}_${script_name}_Thumbnail_tmp.png 2>/dev/null
+   $montage 00*.jpg -pointsize 8 -size 256x256 -thumbnail 256x256 -colors 255 -depth 8 -define png:compression-level=5 -geometry +3+3 -tile ${num_columns}x -sampling-factor 3x1 -quality 2 -border 1 ${name_video}_${script_name}_Thumbnail_tmp.png 2>/dev/null
    log "* convert..."
    $convert ${name_video}_${script_name}_Thumbnail_tmp.png -background $color_info label:"$info_video" +swap -gravity NorthWest -append label:"$make_by" -append -gravity south ${name_video}_${script_name}_Thumbnail.png 2>/dev/null
    mv ${name_video}_${script_name}_Thumbnail.png $OLDPWD
