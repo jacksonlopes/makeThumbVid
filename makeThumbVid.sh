@@ -124,7 +124,7 @@ function generate_thumb() {
    $montage 00*.jpg -pointsize 8 -size 256x256 -thumbnail 256x256 -colors 255 -depth 8 -define png:compression-level=5 -geometry +3+3 -tile ${num_columns}x -sampling-factor 3x1 -quality 2 -border 1 ${name_video}_${script_name}_Thumbnail_tmp.png 2>/dev/null
    log "* convert..."
    $convert ${name_video}_${script_name}_Thumbnail_tmp.png -background $color_info label:"$info_video" +swap -gravity NorthWest -append label:"$make_by" -append -gravity south ${name_video}_${script_name}_Thumbnail.png 2>/dev/null
-   mv ${name_video}_${script_name}_Thumbnail.png $OLDPWD
+   mv ${name_video}_${script_name}_Thumbnail.png "$OLDPWD"
    log "* clean..."
    rm 000*.jpg
    rm ${name_video}_${script_name}_Thumbnail_tmp.png
