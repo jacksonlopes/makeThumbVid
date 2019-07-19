@@ -28,7 +28,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv
 [06/11/2016-11:12:12] - * clean...  
 [06/11/2016-11:12:12] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-![Example:](https://jacksonlopes.github.io/images/projetos/makeThumbVid/01.png)
+![Example:](https://i.pstorage.space/i/7M3WNnlb2/original_01.png)
 
 -----------------
 
@@ -46,7 +46,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv -n 20
 [06/11/2016-11:23:59] - * clean...  
 [06/11/2016-11:23:59] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-![Example:](https://jacksonlopes.github.io/images/projetos/makeThumbVid/02.png)
+![Example:](https://i.pstorage.space/i/a64WgLOag/original_02.png)
 
 -----------------
 
@@ -64,7 +64,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3.mkv -n 15 -c 5
 [06/11/2016-11:26:28] - * clean...  
 [06/11/2016-11:26:28] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'  
 
-![Example:](https://jacksonlopes.github.io/images/projetos/makeThumbVid/03.png)
+![Example:](https://i.pstorage.space/i/Zx9Dkn6Kq/original_03.png)
 
 -----------------
 
@@ -82,7 +82,7 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.A -t ff
 [27/11/2016-07:49:19] - * clean...  
 [27/11/2016-07:49:19] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'
 
-![Example:](https://jacksonlopes.github.io/images/projetos/makeThumbVid/04.png)
+![Example:](https://i.pstorage.space/i/Meb6XnwKp/original_04.png)
 
 -----------------
 
@@ -100,5 +100,5 @@ Leopard/HDTV.NG.Eye.of.the.Leopard.x264.720p.A -t mi
 [27/11/2016-07:53:43] - * clean...  
 [27/11/2016-07:53:43] - Generated: 'HDTV.NG.Eye.of.the.Leopard.x264.720p.AC3_makeThumbVid_Thumbnail.png'
 
-![Example:](https://jacksonlopes.github.io/images/projetos/makeThumbVid/05.png)
+![Example:](https://i.pstorage.space/i/Meb6Xn9Oj/original_05.png)
 
