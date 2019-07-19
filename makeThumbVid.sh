@@ -13,8 +13,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Jackson Lopes <jacksonlopes@gmail.com>
-# Personal site: https://jacksonlopes.github.io
-# Info/Source: https://makeThumbVid.github.io | https://github.com/jacksonlopes/makeThumbVid
+# Site: https://jslabs.cc
+# Source: https://github.com/jacksonlopes/makeThumbVid
 
 # Dependencies | Dependências:
 # ffprobe, ffmpeg, mplayer, ImageMagick {montage/convert}
@@ -30,7 +30,7 @@ SUCESS=0
 
 version="1.0"
 script_name="makeThumbVid"
-site="https://makeThumbVid.github.io"
+site="https://jslabs.cc"
 name_video=""
 name_video_constant=""
 # get filename | obtem apenas o nome do arquivo
