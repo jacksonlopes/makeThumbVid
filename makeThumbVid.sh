@@ -13,8 +13,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Jackson Lopes <jacksonlopes@gmail.com>
-# Site: https://jslabs.cc
-# Source: https://github.com/jacksonlopes/makeThumbVid
+# URL: https://jslabs.cc
+# src: https://github.com/jacksonlopes/makeThumbVid
 
 # Dependencies | Dependências:
 # ffprobe, ffmpeg, mplayer, ImageMagick {montage/convert}
